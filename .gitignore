@@ -1,5 +1,5 @@
 .DS_Store
-/Data
+/Data/*
 /.build
 /Packages
 /*.xcodeproj
