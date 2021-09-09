@@ -2,11 +2,15 @@ import Foundation
 import SQLite
 import OSLog
 
+/// Main service to provide a local reversed geocoding.
 public class ReverseGeoCodeService {
-    
+    /// Connection to the database
     private var dbConnection: Connection?
+    /// Logger
     private let logger = Logger(subsystem:Bundle.main.bundleIdentifier ?? "SwiftReverseGeoCode",category: "ReverseGeoCodeService")
     
+    /// instanciante a Service
+    ///     - parameter database:path of the database to open, see documentation to create a database
     public init(database:String) {
         do {
             try dbConnection = Connection(database,readonly: true)
@@ -14,7 +18,12 @@ public class ReverseGeoCodeService {
             logger.error("Error connecting to database : \(String(describing:error))")
         }
     }
-    
+    /// GetLocation at provided coordinate
+    /// -   parameter latitude: Double signed latitude
+    /// -   parameter longitude: Double signed longitude (East is positive, West is negative)
+    ///
+    /// - throws ReverseErrorException
+    /// - returns LocationnDescription of the nearest point of interest.
     public func ReverseGeoCode(latitude:Double, longitude:Double ) throws -> LocationDescription {
         guard let db = dbConnection else {
             logger.error("No online database")
@@ -46,6 +55,7 @@ public class ReverseGeoCodeService {
                   let latitude = row[6] as? Double,
                   let longitude = row[7] as? Double
             else {
+                logger.error("Error in unwraping location for \(latitude),\(longitude)")
                 throw ReverseError.errorUnwraping
             }
             return LocationDescription(id: id,
@@ -55,6 +65,7 @@ public class ReverseGeoCodeService {
                                        countryName: countryname,
                                        latitude: latitude, longitude: longitude)
         }
+        logger.warning("Nothing here: \(latitude),\(longitude)")
         throw ReverseError.novalue
     }
     
