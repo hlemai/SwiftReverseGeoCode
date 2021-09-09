@@ -1,14 +1,19 @@
 
-
 public extension ReverseGeoCodeService {
-    
+
+    /// SIngleton instance
     private static var service: ReverseGeoCodeService?
+    /// default database path
     private static var databasePath = "../Data/geocitydb.sqlite"
 
-    static func SetDatabase(path:String) {
+    /// fix the path of the database for singleton instance
+    /// mandatory if you want to a valide db in the singleton
+    /// - parameter path: String representing the path of the database
+    static func setDatabase(path:String) {
         databasePath = path
     }
 
+    /// get Singleton instance
     static var main:ReverseGeoCodeService {
         get {
             guard let unwrapservice = service else {

@@ -25,6 +25,13 @@ This script download data on geonames web site, and fill the sql database. In co
 
 ## Usage
 
+The librairy is available within swift package manager. 
+the url of the package is
+```swift
+.package(url: "https://github.com/hlemai/SwiftReverseGeoCode.git", from : "1.0.0"),
+```
+The name of the librairy is `SwiftReverseGeoCode`.
+
 The result are provided in a LocationDescription Struct. The nearest point of interest in the database is returned.
 ```swift
 let reverseService = ReverseGeoCodeService(database: "path/to/geocitydb.sqlite")
