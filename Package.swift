@@ -23,7 +23,7 @@ let package = Package(
         .target(
             name: "SwiftReverseGeoCode",
             dependencies: [
-                ._productItem(name: "SQLite", package: "SQLite.swift", condition: nil)
+                .productItem(name: "SQLite", package: "SQLite.swift", condition: nil)
             ]),
         .testTarget(
             name: "SwiftReverseGeoCodeTests",
