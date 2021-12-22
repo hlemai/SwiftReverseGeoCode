@@ -7,15 +7,17 @@ public class ReverseGeoCodeService {
     /// Connection to the database
     private var dbConnection: Connection?
     /// Logger
-    private let logger = Logger(subsystem:Bundle.main.bundleIdentifier ?? "SwiftReverseGeoCode",category: "ReverseGeoCodeService")
-    
+    private let logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier ?? "SwiftReverseGeoCode",
+        category: "ReverseGeoCodeService")
+
     /// instanciante a Service
     ///     - parameter database:path of the database to open, see documentation to create a database
-    public init(database:String) {
+    public init(database: String) {
         do {
-            try dbConnection = Connection(database,readonly: true)
+            try dbConnection = Connection(database, readonly: true)
         } catch {
-            logger.error("Error connecting to database : \(String(describing:error))")
+            logger.error("Error connecting to database : \(String(describing: error))")
         }
     }
     /// GetLocation at provided coordinate
@@ -24,13 +26,13 @@ public class ReverseGeoCodeService {
     ///
     /// - throws ReverseErrorException
     /// - returns LocationnDescription of the nearest point of interest.
-    public func ReverseGeoCode(latitude:Double, longitude:Double ) throws -> LocationDescription {
+    public func ReverseGeoCode(latitude: Double, longitude: Double ) throws -> LocationDescription {
         guard let db = dbConnection else {
             logger.error("No online database")
             throw ReverseError.dbError("No connection")
         }
-        //scale = Math.pow(Math.cos(latitude * Math.PI / 180), 2)
-        let scale = pow(cos(latitude * Double.pi / 180),2.0)
+        // scale = Math.pow(Math.cos(latitude * Math.PI / 180), 2)
+        let scale = pow(cos(latitude * Double.pi / 180), 2.0)
         let sql = """
                                SELECT * FROM everything WHERE id IN (
                                  SELECT feature_id
@@ -45,8 +47,8 @@ public class ReverseGeoCodeService {
                                )
                                """
         let stm = try db.prepare(sql)
-        
-        for row in stm.bind(latitude,longitude,scale) {
+
+        for row in stm.bind(latitude, longitude, scale) {
             guard let id = row[0] as? Int64,
                   let name = row[1] as? String ,
                   let adminame = row[3] as? String,
@@ -68,5 +70,5 @@ public class ReverseGeoCodeService {
         logger.warning("Nothing here: \(latitude),\(longitude)")
         throw ReverseError.novalue
     }
-    
+
 }

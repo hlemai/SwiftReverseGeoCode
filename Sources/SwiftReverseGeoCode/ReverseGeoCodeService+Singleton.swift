@@ -1,4 +1,3 @@
-
 public extension ReverseGeoCodeService {
 
     /// SIngleton instance
@@ -9,19 +8,17 @@ public extension ReverseGeoCodeService {
     /// fix the path of the database for singleton instance
     /// mandatory if you want to a valide db in the singleton
     /// - parameter path: String representing the path of the database
-    static func setDatabase(path:String) {
+    static func setDatabase(path: String) {
         databasePath = path
     }
 
     /// get Singleton instance
-    static var main:ReverseGeoCodeService {
-        get {
-            guard let unwrapservice = service else {
-                service = ReverseGeoCodeService(database:databasePath)
-                return service!
-            }
-            return unwrapservice
+    static var main: ReverseGeoCodeService {
+        guard let unwrapservice = service else {
+            service = ReverseGeoCodeService(database: databasePath)
+            return service!
         }
+        return unwrapservice
     }
 
 }

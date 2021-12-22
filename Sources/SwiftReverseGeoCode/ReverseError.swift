@@ -8,7 +8,7 @@
 import Foundation
 
 /// error throw by the ReverseGeoCodeService
-enum ReverseError : Error {
+enum ReverseError: Error {
     /// error during the connection of the db
     case dbError(String)
     /// the location is in the middle of nowhere -> no POI near the location
