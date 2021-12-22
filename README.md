@@ -37,7 +37,7 @@ The result are provided in a LocationDescription Struct. The nearest point of in
 ```swift
 let reverseService = ReverseGeoCodeService(database: "path/to/geocitydb.sqlite")
 
-let location = try reverseService.ReverseGeoCode(latitude: 37.78772166666667, longitude: -122.40679166666666)
+let location = try reverseService.reverseGeoCode(latitude: 37.78772166666667, longitude: -122.40679166666666)
 
 // location.countryCode == "US"
 // location.name == "Chinatown"
