@@ -1,5 +1,4 @@
 public extension ReverseGeoCodeService {
-
     /// SIngleton instance
     private static var service: ReverseGeoCodeService?
     /// default database path
@@ -20,5 +19,4 @@ public extension ReverseGeoCodeService {
         }
         return unwrapservice
     }
-
 }

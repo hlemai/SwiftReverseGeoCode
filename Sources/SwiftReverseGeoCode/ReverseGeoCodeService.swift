@@ -27,7 +27,7 @@ public class ReverseGeoCodeService {
     /// - throws ReverseErrorException
     /// - returns LocationnDescription of the nearest point of interest.
     public func reverseGeoCode(latitude: Double, longitude: Double ) throws -> LocationDescription {
-        guard let db = dbConnection else {
+        guard let database = dbConnection else {
             logger.error("No online database")
             throw ReverseError.dbError("No connection")
         }
@@ -46,7 +46,7 @@ public class ReverseGeoCodeService {
                                  LIMIT 1
                                )
                                """
-        let stm = try db.prepare(sql)
+        let stm = try database.prepare(sql)
 
         for row in stm.bind(latitude, longitude, scale) {
             guard let id = row[0] as? Int64,
