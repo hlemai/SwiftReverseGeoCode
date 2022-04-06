@@ -24,7 +24,10 @@ let package = Package(
             name: "SwiftReverseGeoCode",
             dependencies: [
                 .product(name: "SQLite", package: "SQLite.swift")
-            ]),
+            ],
+            resources: [
+                .process("Resources/geocitydb.sqlite")]
+        ),
         .testTarget(
             name: "SwiftReverseGeoCodeTests",
             dependencies: ["SwiftReverseGeoCode"])

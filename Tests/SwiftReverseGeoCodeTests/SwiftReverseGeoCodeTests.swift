@@ -74,5 +74,11 @@ import XCTest
             XCTAssertNil(location)
 
         }
+        func testUseBundledBase() throws {
+            
+            let dataURL = Bundle.module.url(forResource: "geocitydb", withExtension:"sqlite", subdirectory: "")
+            print (dataURL)
+            XCTAssert(dataURL?.path != nil)
+        }
 
     }
